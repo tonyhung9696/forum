@@ -1,0 +1,662 @@
+﻿@model Article
+@{
+    ViewBag.Title = "Create Article";
+}
+<form asp-controller="article" asp-action="create" enctype="multipart/form-data" method="post" class="mt-3">
+    <input hidden asp-for="content" value="123" />
+
+    <label for="sel1">Title:</label>
+    <input asp-for="title" type="text" class="form-control form-control">
+    <label for="sel1">Type of title:</label>
+    <input asp-for="articleType" type="text" class="form-control form-control">
+    <label for="sel1">Tag:(#tag)</label>
+    <input asp-for="tag" type="text" class="form-control form-control">
+    <br />
+
+    <div id="containercustom">
+        <div class="navbarcustom">
+            <div class="navbarcustom-box">
+                <div class="dropdowncustom">
+                    <button type="button" class="dropbtncustom">
+                        File
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdowncustom-content">
+                        <button type="button" class="editorImageDetail" onclick="">
+                            <div class="left">
+                                <img src="~/img/newfile.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                New document
+                            </div>
+                            <div class="right">
+
+                            </div>
+                        </button>
+
+                        <button type="button" class="editorImageDetail" onclick="preview()">
+                            <div class="left">
+                                <img src="~/img/preview.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Preview
+                            </div>
+                            <div class="right">
+
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="dropdowncustom">
+                    <button type="button" class="dropbtncustom">
+                        Edit
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdowncustom-content">
+                        <button type="button" class="editorImageDetail" onclick="document.execCommand('undo',false,null);">
+                            <div class="left">
+                                <img src="~/img/undo.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Undo
+                            </div>
+                            <div class="right">
+                                Ctrl+Z
+                            </div>
+                        </button>
+                        <button type="button" class="editorImageDetail" onclick="document.execCommand('redo',false,null);">
+                            <div class="left">
+                                <img src="~/img/redo.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Redo
+                            </div>
+                            <div class="right">
+                                Ctrl+Y
+                            </div>
+                        </button>
+                        <button type="button" class="editorImageDetail" onclick="document.execCommand('cut',false,null);">
+                            <div class="left">
+                                <img src="~/img/cut.jpg" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Cut
+                            </div>
+                            <div class="right">
+                                Ctrl+X
+                            </div>
+                        </button>
+                        <button type="button" class="editorImageDetail" onclick="document.execCommand('copy',false,null);">
+                            <div class="left">
+                                <img src="~/img/copy.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Copy
+                            </div>
+                            <div class="right">
+                                Ctrl+C
+                            </div>
+                        </button>
+                        <button type="button" class="editorImageDetail" onclick="document.execCommand('paste',false,null);">
+                            <div class="left">
+                                <img src="~/img/paste.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Paste
+                            </div>
+                            <div class="right">
+                                Ctrl+V
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="dropdowncustom">
+                    <button type="button" class="dropbtncustom">
+                        Insert
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdowncustom-content">
+                        <button type="button" class="editorImageDetail" onclick="">
+                            <div class="left">
+                                <img src="~/img/image.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Image
+                            </div>
+                            <div class="right">
+
+                            </div>
+                        </button>
+                        <button type="button" class="editorImageDetail" onclick="">
+                            <div class="left">
+                                <img src="~/img/Link.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Link
+                            </div>
+                            <div class="right">
+
+                            </div>
+                        </button>
+                        <button type="button" class="editorImageDetail" onclick="">
+                            <div class="left">
+                                <img src="~/img/media.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Media
+                            </div>
+                            <div class="right">
+
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="dropdowncustom">
+                    <button type="button" class="dropbtncustom">
+                        Format
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdowncustom-content">
+                        <button type="button" class="editorImageDetail" onclick="document.execCommand('bold',false,null);">
+                            <div class="left">
+                                <img src="~/img/bold.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Bold
+                            </div>
+                            <div class="right">
+                                Ctrl+B
+                            </div>
+                        </button>
+                        <button type="button" class="editorImageDetail" onclick="document.execCommand('italic',false,null);">
+                            <div class="left">
+                                <img src="~/img/italic.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Italic
+                            </div>
+                            <div class="right">
+                                Ctrl+I
+                            </div>
+                        </button>
+                        <button type="button" class="editorImageDetail" onclick="document.execCommand('bold',false,null);">
+                            <div class="left">
+                                <img src="~/img/underline.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Underline
+                            </div>
+                            <div class="right">
+                                Ctrl+U
+                            </div>
+                        </button>
+                        <button type="button" class="editorImageDetail" onclick="document.execCommand('underline',false,null);">
+                            <div class="left">
+                                <img src="~/img/strikethrough.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Strikethrough
+                            </div>
+                            <div class="right">
+
+                            </div>
+                        </button>
+                        <button type="button" class="editorImageDetail" onclick="document.execCommand('strikethrough',false,null);">
+                            <div class="left">
+                                <img src="~/img/strikethrough.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Superscript
+                            </div>
+                            <div class="right">
+
+                            </div>
+                        </button>
+                        <button type="button" class="editorImageDetail" onclick="document.execCommand('subscript',false,null);">
+                            <div class="left">
+                                <img src="~/img/subscript.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Subscript
+                            </div>
+                            <div class="right">
+
+                            </div>
+                        </button>
+                        <button type="button" class="editorImageDetail" onclick="document.execCommand('superscript',false,null);">
+                            <div class="left">
+                                <img src="~/img/superscript.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Subscript
+                            </div>
+                            <div class="right">
+
+                            </div>
+                        </button>
+                        <div class="editorImageDetail">
+                            <div class="left">
+
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Align
+                            </div>
+                            <div class="right">
+                                <i class="fa fa-caret-right"></i>
+                            </div>
+
+                            <div class="dropdowncustom">
+                                <div class="droprightcustom-content">
+                                    <button type="button" class="editorImageDetail" onclick="document.execCommand('justifyLeft',false,null);">
+                                        <div class="left">
+                                            <img src="~/img/left.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                                        </div>
+                                        <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                            Align-Left
+                                        </div>
+                                        <div class="right">
+
+                                        </div>
+                                    </button>
+                                    <button type="button" class="editorImageDetail" onclick="document.execCommand('justifyCenter',false,null);">
+                                        <div class="left">
+                                            <img src="~/img/center.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                                        </div>
+                                        <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                            Align-Center
+                                        </div>
+                                        <div class="right">
+
+                                        </div>
+                                    </button>
+                                    <button type="button" class="editorImageDetail" onclick="document.execCommand('justifyRight',false,null);">
+                                        <div class="left">
+                                            <img src="~/img/right.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                                        </div>
+                                        <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                            Align-Right
+                                        </div>
+                                        <div class="right">
+
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdowncustom">
+                    <button type="button" class="dropbtncustom">
+                        Table
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdowncustom-content">
+                        <div class="editorImageDetail">
+                            <div class="left">
+                                <img src="~/img/table.png" style='height: 18px; width: 18px; object-fit: contain'></img>
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Table
+                            </div>
+                            <div class="right">
+                                <i class="fa fa-caret-right"></i>
+                            </div>
+
+                            <div class="dropdowncustom">
+                                <div class="droprightcustom-content" style="width:165px;padding: unset;line-height:17px;">
+                                    <div id="grid_chooser" style="width:165px;padding: unset;padding-top:8px;line-height:17px;" class="unselectable"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="editorImageDetail">
+                            <div class="left">
+
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Cell
+                            </div>
+                            <div class="right">
+                                <i class="fa fa-caret-right"></i>
+                            </div>
+
+                            <div class="dropdowncustom">
+                                <div class="droprightcustom-content">
+                                    <button type="button" class="editorImageDetail" onclick="table_merger()">
+                                        <div class="left">
+
+                                        </div>
+                                        <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                            Merge Cell
+                                        </div>
+                                        <div class="right">
+
+                                        </div>
+                                    </button>
+                                    <button type="button" class="editorImageDetail" onclick="table_split()">
+                                        <div class="left">
+
+                                        </div>
+                                        <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                            Split Cell
+                                        </div>
+                                        <div class="right">
+
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="editorImageDetail" onclick="">
+                            <div class="left">
+
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Row
+                            </div>
+                            <div class="right">
+                                <i class="fa fa-caret-right"></i>
+                            </div>
+
+                            <div class="dropdowncustom">
+                                <div class="droprightcustom-content">
+                                    <button type="button" class="editorImageDetail" onclick="table_Row('#grid_configurator','before')">
+                                        <div class="left">
+
+                                        </div>
+                                        <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                            Insert Row Before
+                                        </div>
+                                        <div class="right">
+
+                                        </div>
+                                    </button>
+                                    <button type="button" class="editorImageDetail" onclick="table_Row('#grid_configurator','after')">
+                                        <div class="left">
+
+                                        </div>
+                                        <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                            Insert Row After
+                                        </div>
+                                        <div class="right">
+
+                                        </div>
+                                    </button>
+                                    <button type="button" class="editorImageDetail" onclick="table_Row('#grid_configurator','remove')">
+                                        <div class="left">
+
+                                        </div>
+                                        <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                            Delete Row
+                                        </div>
+                                        <div class="right">
+
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="editorImageDetail" onclick="">
+                            <div class="left">
+
+                            </div>
+                            <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                Column
+                            </div>
+                            <div class="right">
+                                <i class="fa fa-caret-right"></i>
+                            </div>
+
+                            <div class="dropdowncustom">
+                                <div class="droprightcustom-content">
+                                    <button type="button" class="editorImageDetail" onclick="table_Column('#grid_configurator','before')">
+                                        <div class="left">
+
+                                        </div>
+                                        <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                            Insert Column Before
+                                        </div>
+                                        <div class="right">
+
+                                        </div>
+                                    </button>
+                                    <button type="button" class="editorImageDetail" onclick="table_Column('#grid_configurator','after')">
+                                        <div class="left">
+
+                                        </div>
+                                        <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                            Insert Column After
+                                        </div>
+                                        <div class="right">
+
+                                        </div>
+                                    </button>
+                                    <button type="button" class="editorImageDetail" onclick="table_Column('#grid_configurator','remove')">
+                                        <div class="left">
+
+                                        </div>
+                                        <div class="center" style="float: left;color: black;padding-left: 10px;padding-top:4px;font-size:12px; font-weight: bold;">
+                                            Delete Column
+                                        </div>
+                                        <div class="right">
+
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbarcustom-box">
+
+                <div class="navbarcustom-part">
+                    <div class="img">
+                        <button type="button" class="undo-applyimage" title="Undo" onclick="document.execCommand('redo',false,null);"></button>
+                        <button type="button" class="redo-applyimage" title="Redo" onclick="document.execCommand('undo',false,null);"></button>
+                    </div>
+                </div>
+                <div class="navbarcustom-part">
+                    <div class="img">
+                        <button type="button" class="align-leftimage" title="align-left" onclick="document.execCommand('justifyLeft',false,null);"></button>
+                        <button type="button" class="align-centerimage" title="align-center" onclick="document.execCommand('justifyCenter',false,null);"></button>
+                        <button type="button" class="align-rightimage" title="align-right" onclick="document.execCommand('justifyRight',false,null);"></button>
+                        <button type="button" class="orderedlistimage" title="NumOrderlist" onclick="document.execCommand('insertOrderedList', false, null);"></button>
+                        <button type="button" class="unorderedlistimage" title="Orderlist" onclick="document.execCommand('insertUnorderedList',false, null)"></button>
+                    </div>
+                </div>
+                <div class="navbarcustom-part">
+                    <div class="img">
+                        <button type="button" class="italicimage" onclick="document.execCommand('italic',false,null);" title="Italicize Highlighted Text"></button>
+                        <button type="button" class="boldimage" onclick="document.execCommand('bold',false,null);" title="Bold Highlighted Text"></button>
+                        <button type="button" class="underlineimage" onclick="document.execCommand('underline',false,null);" title="underline"></button>
+                        <button type="button" class="strikethroughimage" title="strikethrough" onclick="document.execCommand('strikethrough',false,null);" title="strikethrough"></button>
+                        <button type="button" class="subscriptimage" title="subscript" onclick="document.execCommand('subscript',false,null);" title="subscript"></button>
+                        <button type="button" class="superscriptimage" title="superscript" onclick="document.execCommand('superscript',false,null);" title="superscript"></button>
+
+                    </div>
+                </div>
+                <div class="navbarcustom-part" style="padding-top:0px;">
+                    <select id="input-fontimage" class="input" onchange="changeFont(this);">
+                        <option value="Arial">Arial</option>
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Sans serif">Sans serif</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Palatino">Palatino</option>
+                        <option value="Garamond">Garamond</option>
+                        <option value="Comic Sans MS">Comic Sans MS</option>
+                        <option value="Arial Black">Arial Black</option>
+                        <option value="Tahoma">Tahoma</option>
+                        <option value="Comic Sans MS">Comic Sans MS</option>
+                    </select>
+                    <select id="fontSize" onclick="changeSize()">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                    <input class="color-applyimage" type="color" onchange="chooseColor()" id="myColor">
+                    <input class="color-applyimage" type="color" onchange="chooseColor2()" id="backColor">
+                </div>
+            </div>
+            <div class="navbarcustom-box">
+
+                <div class="navbarcustom-part">
+                    <div class="img">
+                        <button type="button" class="cutimage" title="Cut" onclick="document.execCommand('cut',false,null);"></button>
+                        <button type="button" class="copyimage" title="Copy" onclick="document.execCommand('copy',false,null);"></button>
+                        <button type="button" class="pasteimage" title="Paste" onclick="document.execCommand('paste',false,null);"></button>
+                    </div>
+                </div>
+                <div class="navbarcustom-part">
+                    <div class="img">
+                        <button type="button" class="imageimage" title="image" onclick="cimage()"></button>
+                        <button type="button" class="linkimage" title="link" onclick="chref()"></button>
+                        <button type="button" class="mediaimage" title="media" onclick="cmedia()"></button>
+                    </div>
+                </div>
+                <div class="navbarcustom-part">
+                    <div class="img">
+                        <button type="button" class="codeimage" title="code" onclick="ccode()"></button>
+                        <button type="button" class="editcode" title="editcode" onclick="editcode()"></button>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+        <div id="editor1" contenteditable="true" data-text="Enter comment...." style="overflow:auto;">
+
+
+        </div>
+        <div class="back">
+
+        </div>
+        <div class="CenterScreen">
+            <div class="c-topbar">
+                <div class="c-close">
+                    X
+                </div>
+            </div>
+            <div class="c-body">
+                <div class="c-preview">
+                    <div class="preview" data-text="Enter comment...." style="overflow:auto;height:100%;width:100%;">
+
+                    </div>
+                </div>
+                <div class="c-href">
+                    <div>
+                        URL:<br />
+                        <input id="URLhref" type="text" style="width:95%"></input><p></p>
+                        Title:<br />
+                        <input id="URLtitle" type="text" style="width:95%"></input><p></p>
+                        <button type="button" id="bhref" style="border-radius: 12px;font-size:40px;background-color:dodgerblue;color:white">OK</button>
+                    </div>
+
+                </div>
+                <div class="c-image" style="overflow:auto;height:100%;width:100%;">
+                    <input type="file" class="imgupload" id="imgInp" name="files" accept="image/*">
+                    <div class="col-lg-6">
+                        <img src="" class="img img-responsive img-rounded" />
+                    </div>
+                    <div>
+                        Source:<br />
+                        <input id="imgsource" type="text" style="width:95%"></input><p></p>
+                        Description:<br />
+                        <input type="text" id="imagedesc" style="width:95%"></input><p></p>
+                        Dimensions:<br />
+                        <input type="text" id="imagex" style="width:50px"></input> x <input type="text" id="imagey" style="width:50px"></input><p></p>
+                        <button type="button" id="bimage" style="border-radius: 12px;font-size:40px;background-color:dodgerblue;color:white">OK</button>
+                    </div>
+                </div>
+                <div class="c-media" style="overflow:auto;height:100%;width:100%;">
+                    <div>
+                        Source(Youtube Only):<br />
+                        <input id="mediahref" type="text" style="width:95%"></input><p></p>
+                        <button type="button" id="bmedia" style="border-radius: 12px;font-size:40px;background-color:dodgerblue;color:white">OK</button>
+                    </div>
+                </div>
+                <div class="c-code" style="overflow:auto;height:100%;width:100%;">
+                    <div>
+                        <textarea class="ccodeview" style="overflow-y:scroll;width:100%;height:500px;"></textarea>
+                    </div>
+                </div>
+                <div class="edit-code" style="overflow:auto;height:100%;width:100%;">
+                    <div>
+                        <textarea id="codesource" class="codesource" style="overflow-y:scroll;width:95%;height:500px;"></textarea>
+                        <button type="button" id="beditcode" style="border-radius: 12px;font-size:40px;background-color:dodgerblue;color:white">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button id="submitCode" type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script>
+            var grid_chooser = "#grid_chooser";
+            var grid_content = "";
+            for (var i = 0; i < 10; i++) {
+                for (var j = 0; j < 10; j++) {
+                    grid_content += '<div data-x="' + (i + 1) + '" data-y="' + (j + 1) + '" class="grid_chooser_bit" '
+                        + ' onmouseover="dashboard_configurator.on_grid_selector_hover(this)"'
+                        + ' onclick="dashboard_configurator.on_grid_selector_click(this)"></div>';
+                }
+            }
+            $(grid_chooser).append(grid_content);
+
+            var draggable = $('.c-topbar'); //element
+
+            draggable.on('mousedown', function (e) {
+                var CenterScreen = $(".CenterScreen")
+                var dr = $(CenterScreen).addClass("drag").css("cursor", "move");
+                height = dr.outerHeight();
+                width = dr.outerWidth();
+                //max_left = dr.parent().offset().left + dr.parent().width() - dr.width();
+                //max_top = dr.parent().offset().top + dr.parent().height() - dr.height();
+                max_left = $(window).width() - CenterScreen.width();
+                max_top = $(window).height() - CenterScreen.height();
+                //min_left = dr.parent().offset().left;
+                //min_top = dr.parent().offset().top;
+                min_left = 8;
+                min_top = 8;
+                console.log('max_left' + max_left);
+                console.log('max_top' + max_top);
+                console.log('min_left' + min_left);
+                console.log('min_top' + min_top);
+
+                ypos = dr.offset().top + height - e.pageY,
+                    xpos = dr.offset().left + width - e.pageX;
+                $(document.body).on('mousemove', function (e) {
+                    var itop = e.pageY + ypos - height;
+                    var ileft = e.pageX + xpos - width;
+
+                    if (dr.hasClass("drag")) {
+                        if (itop <= min_top) { itop = min_top; }
+                        if (ileft <= min_left) { ileft = min_left; }
+                        if (itop >= max_top) { itop = max_top; }
+                        if (ileft >= max_left) { ileft = max_left; }
+                        dr.offset({ top: itop, left: ileft });
+                    }
+                }).on('mouseup', function (e) {
+                    dr.removeClass("drag");
+                    $(CenterScreen).css("cursor", "default");
+                });
+            });
+
+        </script>
+    }
+</form>

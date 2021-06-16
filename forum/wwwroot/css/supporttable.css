@@ -1,0 +1,38 @@
+#grid_chooser
+{
+	width: 180px;
+	height: 180px;
+	margin: auto;
+}
+
+#grid_chooser .grid_chooser_bit
+{
+	border: 1px solid #ccc;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	margin-top: -5px;
+	cursor: pointer;
+}
+
+#grid_chooser .grid_chooser_bit.chosen
+{
+	border: 1px solid #9900ff;
+}
+
+
+.edittable
+{
+	width:100%;
+	border: 1px solid black;
+	border-collapse: collapse;
+	height: inherit;
+	resize: both;
+	overflow: hidden;
+}
+
+.edittable td
+{
+	border: 1px solid black;
+	text-align: center; 
+}

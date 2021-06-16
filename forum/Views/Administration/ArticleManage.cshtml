@@ -1,0 +1,167 @@
+﻿@model PaginatedList<Article>
+@{
+    ViewData["Title"] = "ArticleManage";
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<form asp-action="ArticleManage" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Search: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-action="ArticleManage" style="background-color:grey;color:white;">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+<table class="table table-white table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Title</th>
+            <th>CreateTime</th>
+            <th>Manage</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.name</td>
+                <td>@item.title</td>
+                <td>@item.datetime</td>
+                <td>
+                    <form asp-action="DeleteArticle" asp-route-id="@item.id" method="post">
+                        <span id="confirmDeleteSpan_@item.id" style="display:none">
+                            <span>Are you sure you want to delete?</span>
+                            <button type="submit" class="btn btn-danger">Yes</button>
+                            <a href="#" class="btn btn-primary"
+                               onclick="confirmDelete('@item.id', false)">No</a>
+                        </span>
+
+                        <span id="deleteSpan_@item.id">
+                            <a href="#" class="btn btn-danger"
+                               onclick="confirmDelete('@item.id', true)">Delete</a>
+                        </span>
+                    </form>
+                    
+                    <a asp-controller="Article" asp-action="Detail" asp-route-id="@item.id.ToString()" class="btn btn-primary">View</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div style="display:inline-flex">
+
+    @{
+        if (prevDisabled == "")
+        {
+            <a asp-action="ArticleManage"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@(Model.PageIndex - 1)"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="page-link @prevDisabled">
+                Previous
+            </a>
+        }
+        else
+        {
+            <a asp-action="ArticleManage"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@(Model.PageIndex - 1)"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="page-link @prevDisabled" style="pointer-events: none; color:gray;">
+                Previous
+            </a>
+        }
+
+
+
+        <a asp-action="ArticleManage"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="1"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="page-link">
+            1
+        </a>
+
+
+        for (int i = Model.PageIndex - 4; i < Model.PageIndex; i++)
+        {
+            if (i > 1)
+            {
+
+                <a asp-action="ArticleManage"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-pageNumber="@i"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   class="page-link">
+                    @i
+                </a>
+
+            }
+        }
+
+        if (Model.PageIndex != 1 && Model.PageIndex != Model.TotalPages)
+        {
+            <a href="#" class="page-link" style="background-color:dodgerblue;color:white;">@Model.PageIndex</a>
+        }
+
+
+
+
+        for (int i = Model.PageIndex + 1; i < Model.PageIndex + 5; i++)
+        {
+            if (i < Model.TotalPages)
+            {
+
+                <a asp-action="ArticleManage"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-pageNumber="@i"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   class="page-link">
+                    @i
+                </a>
+
+            }
+        }
+
+        if (Model.TotalPages > 1)
+        {
+            <a asp-action="ArticleManage"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@Model.TotalPages"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="page-link">
+                @Model.TotalPages
+            </a>
+        }
+
+
+        if (nextDisabled == "")
+        {
+            <a asp-action="ArticleManage"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@(Model.PageIndex + 1)"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="page-link @nextDisabled">
+                Next
+            </a>
+        }
+        else
+        {
+            <a asp-action="ArticleManage"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@(Model.PageIndex + 1)"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="page-link @nextDisabled" style="pointer-events: none; color:gray;">
+                Next
+            </a>
+        }
+
+    }
+
+
+</div>
